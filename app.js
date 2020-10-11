@@ -233,19 +233,30 @@ var UIController = (function() {
         },
         
         
-        addListItem: function(obj, type) {
-            var html, newHtml, element;
+        addListItem: function(obj, type, accTypes) {
+            var html, newHtml, element, accTypes;
             // Create HTML string with placeholder text
-            
-            if (type === 'inc') {
+            // Developing a switch case rather than using existing if-statement:
+            // Each case represent a column and each column is either for Current Account A, or Current Account B:
+            switch (accTypes) {
+                case "inc__currentAccountA":
                 element = DOMstrings.incomeContainer;
-                
                 html = '<div class="item clearfix" id="inc-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
-            } else if (type === 'exp') {
-                element = DOMstrings.expensesContainer;
-                
-                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
-            }
+                    break;
+                case "inc__currentAccountB":
+                    element = DOMstrings.incomeContainer;
+                    html = '<div class="item clearfix" id="inc-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                    break;
+                case "exp__currentAccountA":
+                    element = DOMstrings.expensesContainer;
+                    html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                    break;
+                case "exp__currentAccountB":
+                    element = DOMstrings.expensesContainer;
+                    html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                    default:
+                        // code here...
+                }
             
             // Replace the placeholder text with some actual data
             newHtml = html.replace('%id%', obj.id);

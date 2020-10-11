@@ -172,6 +172,8 @@ var budgetController = (function() {
 var UIController = (function() {
     
     var DOMstrings = {
+        // Bank Accounts Quick Win: created a new type named: accTypes
+        accTypes: '.add__acc__types',
         inputType: '.add__type',
         inputDescription: '.add__description',
         inputValue: '.add__value',
@@ -411,7 +413,16 @@ var controller = (function(budgetCtrl, UICtrl) {
     
     
     var ctrlAddItem = function() {
-        var input, newItem;
+        var input, newItem, accTypes;
+        // Quick Wins - Bank Accounts:
+        // I haven't created the new CBO yet, so I'm hard-coding the below codes to check the new x4 columns are working ok:
+
+        // FOR TESTING NEW COLUMNS AS DON'T HAVE NEW CBO AS YET;
+            // var accTypes = "inc__currentAccountA";
+            // var accTypes = "inc__currentAccountB";
+            // var accTypes = "exp__currentAccountB";
+            // var accTypes = "inc__currentAccountB";
+
         
         // 1. Get the field input data
         input = UICtrl.getInput();        
@@ -420,8 +431,8 @@ var controller = (function(budgetCtrl, UICtrl) {
             // 2. Add the item to the budget controller
             newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
-            // 3. Add the item to the UI
-            UICtrl.addListItem(newItem, input.type);
+            // 3. Add the item to the UI. Added new type for Bank Accounts Quick Win - new columns:
+            UICtrl.addListItem(newItem, input.type, accTypes);
 
             // 4. Clear the fields
             UICtrl.clearFields();
